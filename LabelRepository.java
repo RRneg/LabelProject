@@ -35,7 +35,7 @@ public class LabelRepository {
             if (!Files.exists(path))
                 Files.createFile(path);
         } catch (IOException e) {
-            System.out.println("Не удалось создать файл-репозиторий :" + e);
+            System.out.println("Не удалось создать файл-репозиторий Label:" + e);
         }
     }
 
@@ -87,16 +87,14 @@ public class LabelRepository {
     }
 
 
-    public List<String> getAll() {
-        return getAllInternal().stream().map(label -> {
-            return labelToString(label);
-        }).collect(Collectors.toList());
+    public List<Label> getAll() {
+        return getAllInternal();
     }
 
     public Label saveLabel(Label label) {
-        String lable = labelToString(label) + System.getProperty("line.separator");
+        String lable1 = labelToString(label) + System.getProperty("line.separator");
         try {
-            Files.writeString(path, lable, StandardOpenOption.APPEND);
+            Files.writeString(path, lable1, StandardOpenOption.APPEND);
 
 
         } catch (IOException e) {
@@ -118,7 +116,7 @@ public class LabelRepository {
             int id = Integer.parseInt(partsLabel[0]);
             label.setId(id);
         } catch (NumberFormatException e) {
-            System.out.println("Не можем преобразовать строку в число" + e);
+            System.out.println("Не можем преобразовать строку в число в Label" + e);
         }
         String category = partsLabel[1];
         label.setCategory(category);
